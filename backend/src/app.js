@@ -12,7 +12,32 @@ const morgan = require('morgan');
 
 const app = express();
 
-//ROTAS
+//IMPORTANDO O ARQUIVO DATABASE
+const database = require('./config/dbConfig');
+mongoose.Promise = global.Promise;
+//CONEXÃO COM BANCO:
+mongoose.connect(database.local.localDatabaseUrl, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(
+    () => {
+        console.log("A base de dados foi conectada com sucesso!");
+    },
+    (err) => {
+        console.log(`Erro ao conectar com a base de dados...:${err}`);
+        process.exit();
+});
+
+
+
+
+
+
+
+
+
+//ROTAS ESTÃO NESSE ARQUIVO
 const index = require('./routes/index');
 //ps: declarar a rota userroutes.js
 
