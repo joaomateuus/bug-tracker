@@ -29,14 +29,6 @@ mongoose.connect(database.local.localDatabaseUrl, {
         process.exit();
 });
 
-
-
-
-
-
-
-
-
 //ROTAS ESTÃO NESSE ARQUIVO
 const index = require('./routes/index');
 //ps: declarar a rota userroutes.js
