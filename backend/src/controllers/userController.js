@@ -10,6 +10,7 @@ const User = require('../models/userModel');
 
 //==>Async e await
 //==>Método responsável
+//metodo do sign in
 exports.signupNewUser = async (req, res) => {
     try {
         let isUser = await User.find({ usuario: req.body.usuario });
