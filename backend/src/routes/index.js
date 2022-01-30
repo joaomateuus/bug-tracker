@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/back/v1', (req, res)=> {
     res.status(200).send({
         sucess: true,
-        message: 'Seja bem vindo ao nosso server com node.js',
+        message: 'Seja bem vindo ao nosso server com node.js!!',
         version: '1.0.0',
     });
 });
