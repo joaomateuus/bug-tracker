@@ -15,7 +15,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
     {
         usuario: {type: String, maxlength: 50, required: true},
-        senha: {type: String, maxlength: 200, required: true},
+        senha: {type: String, maxlength: 200, required: true}, 
         tokens: 
     [{
         token: {type: String, required: true}
@@ -28,7 +28,6 @@ const userSchema = new Schema(
 );
 
 //métodos de Schema do mongoose
-
 //Esse vai fzr o hash da senha antes de salvar a classe do model user
 userSchema.pre('save', async function(next) {
     const user = this;
