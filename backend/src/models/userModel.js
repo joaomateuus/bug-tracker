@@ -12,19 +12,20 @@ const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 //variavel com schema do banco
-const userSchema = new Schema({
-    usuario: {type: String, maxlength: 50, required: true},
-    senha: {type: String, maxlength: 30, required: true},
-    tokens: 
-    [
-        {
-            token: {type: String, required: true}
-        }
-    ]
-}, {
+const userSchema = new Schema(
+    {
+        usuario: {type: String, maxlength: 50, required: true},
+        senha: {type: String, maxlength: 200, required: true},
+        tokens: 
+    [{
+        token: {type: String, required: true}
+    }]
+    }, 
+    {
     timestamps: true,
     collection:'users',
-});
+    }
+);
 
 //métodos de Schema do mongoose
 
@@ -43,11 +44,12 @@ userSchema.methods.generateAuthToken = async function() {
     const token = jwt.sign({ _id: user._id, usuario: user.usuario}, 'secret');
     user.tokens = user.tokens.concat({ token });
     await user.save();
+    return token;
 };
 
 //faz pesquisa com parametros
 userSchema.statics.findByCredentials = async (usuario, senha) => {
-    const user = await User.findOne({usuario});
+    const user = await User.findOne({ usuario });
     console.log(user);
     //validação p usuario  
     if(!user) {
@@ -62,7 +64,7 @@ userSchema.statics.findByCredentials = async (usuario, senha) => {
     return user
 };
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', userSchema);
 
 //exportando pq vamos usar em outros arquivos
 module.exports = User;

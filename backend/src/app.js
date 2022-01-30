@@ -10,6 +10,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+
 const app = express();
 
 //IMPORTANDO O ARQUIVO DATABASE
@@ -25,12 +26,14 @@ mongoose.connect(database.local.localDatabaseUrl, {
         console.log("A base de dados foi conectada com sucesso!");
     },
     (err) => {
-        console.log(`Erro ao conectar com a base de dados...:${err}`);
+        console.log(`Erro ao conectar com a base de dados...: ${err}`);
         process.exit();
 });
 
-//ROTAS ESTÃO NESSE ARQUIVO
+//ROTAS ESTÃO NESSES ARQUIVO
 const index = require('./routes/index');
+const userRoutes = require('./routes/userRoutes');
+const { Router } = require('express');
 //ps: declarar a rota userroutes.js
 
 app.use(express.urlencoded({ extended:true } ) );
@@ -39,7 +42,10 @@ app.use(express.json({ type: 'application/vnd.api+json' }));
 app.use(cors());
 app.use(morgan('dev'));
 
+
 app.use(index);
-//ps: incluir chamda de userorutes.js
+//chamando pela rota v1 a rota user
+app.use('/back/v1', userRoutes);
+
 
 module.exports = app;
