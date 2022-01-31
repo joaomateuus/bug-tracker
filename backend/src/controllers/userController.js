@@ -9,7 +9,7 @@ const User = require('../models/userModel');
 
 //==>Async e await Método responsável
 
-//metodo do sign in
+//metodo do sign in-----------------------------------------
 exports.signupNewUser = async (req, res) => {
     try {
         let isUser = await User.find({ usuario: req.body.usuario });
@@ -34,7 +34,7 @@ exports.signupNewUser = async (req, res) => {
     }
 };
 
-//função reponsável pelo login
+//função reponsável pelo login--------------------------------------------
 exports.loginUser = async (req, res) =>{
     try {
         const usuario = req.body.usuario;
@@ -54,4 +54,7 @@ exports.loginUser = async (req, res) =>{
     }
 };
 
-exports.returnUserHome= async (req, res) =>{};
+//método q recebe a autenticação e redirec. p home-------------------------
+exports.returnUserHome = async (req, res) =>{
+    await res.json(req.userData); 
+};
